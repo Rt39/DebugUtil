@@ -89,6 +89,9 @@
 class DebugStream {
 private:
     std::wostringstream buffer;         // Internal buffer for collecting output
+#if __cplusplus >= 201103L
+    const
+#endif
     bool autoFlush;                     // Flag controlling automatic flushing behavior
 
     /**
@@ -132,6 +135,23 @@ private:
 
 public:
     explicit DebugStream(bool autoFlushEnabled = true) : autoFlush(autoFlushEnabled) {}
+
+#if __cplusplus < 201103L
+    // Copy constructor and assignment operator for C++98
+    DebugStream(const DebugStream& other) : buffer(other.buffer.str()), autoFlush(other.autoFlush) {}
+    DebugStream& operator=(const DebugStream& other) {
+        if (this != &other) {
+            buffer.str(other.buffer.str());
+            buffer.clear();
+            autoFlush = other.autoFlush;
+        }
+        return *this;
+    }
+#else
+    // Delete copy constructor and assignment operator for C++11 and later
+    DebugStream(const DebugStream& other) = delete;
+    DebugStream& operator=(const DebugStream& other) = delete;
+#endif
     
     ~DebugStream() {
         Flush();
