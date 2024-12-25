@@ -329,6 +329,12 @@ public:
     template<typename T>
     DebugStream& operator<<(const T&) { return *this; }
 
+#if __cplusplus >= 201103L
+    // Delete copy constructor and assignment operator for C++11 and later for consistency
+    DebugStream(const DebugStream&) = delete;
+    DebugStream& operator=(const DebugStream&) = delete;
+#endif
+
     // Support manipulators in release build too
     DebugStream& operator<<(std::basic_ostream<wchar_t>& (*)(std::basic_ostream<wchar_t>&)) { return *this; }
     DebugStream& operator<<(std::ios_base& (*)(std::ios_base&)) { return *this; }
