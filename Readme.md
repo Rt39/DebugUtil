@@ -67,16 +67,6 @@ Common code page options:
 - `CP_THREAD_ACP` - Current thread's ANSI code page
 - Other code pages can be found in the [Windows Code Page Identifiers documentation](https://docs.microsoft.com/en-us/windows/win32/intl/code-page-identifiers)
 
-## Features
-- Stream-style interface similar to std::cout
-- UTF-8 and UTF-16 string support
-- All standard stream manipulators support
-- Automatic type conversion
-- Zero overhead in release builds
-- Thread-safe output
-- RAII-compliant resource management
-
-
 ## API Reference
 
 ### Class: DebugStream
